@@ -1,81 +1,30 @@
-"use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Star } from "lucide-react";
-import { getHomeContent } from "@/content/home";
+import { HOME_CONTENT } from "@/content/home"
 
-const { testimonials } = getHomeContent();
+const { testimonials } = HOME_CONTENT
 
-export const LayoutTestimonialSection = () => {
+export default function LayoutTestimonialSection() {
   return (
-    <section id="testimonials" className="container py-24 sm:py-32">
-      <div className="text-center mb-8">
-        <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-          {testimonials.eyebrow}
-        </h2>
-
-        <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-          {testimonials.heading}
-        </h2>
+    <section id="layout-testimonials" className="py-20 bg-muted/20">
+      <div className="max-w-4xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-8">{testimonials.length > 0 && "What our users say"}</h2>
+        {!!testimonials.length && (
+          <div className="flex flex-col items-center">
+            {testimonials.map((t) => (
+              <blockquote
+                key={t.name}
+                className="border-l-4 border-primary pl-6 pr-2 py-4 mb-8 bg-background rounded shadow max-w-2xl"
+              >
+                <p className="italic text-lg text-muted-foreground mb-2">"{t.text}"</p>
+                <div className="flex items-center gap-4">
+                  <img src={t.image} alt={t.name} className="w-10 h-10 rounded-full" />
+                  <span className="font-semibold">{t.name}</span>
+                  <span className="text-xs text-muted-foreground">, {t.title}</span>
+                </div>
+              </blockquote>
+            ))}
+          </div>
+        )}
       </div>
-
-      <Carousel
-        opts={{
-          align: "start",
-        }}
-        className="relative w-[80%] sm:w-[90%] lg:max-w-screen-xl mx-auto"
-      >
-        <CarouselContent>
-          {testimonials.reviews.map((review) => (
-            <CarouselItem
-              key={review.name}
-              className="md:basis-1/2 lg:basis-1/3"
-            >
-              <Card className="bg-muted/50 dark:bg-card">
-                <CardContent className="pt-6 pb-0">
-                  <div className="flex gap-1 pb-6">
-                    <Star className="size-4 fill-primary text-primary" />
-                    <Star className="size-4 fill-primary text-primary" />
-                    <Star className="size-4 fill-primary text-primary" />
-                    <Star className="size-4 fill-primary text-primary" />
-                    <Star className="size-4 fill-primary text-primary" />
-                  </div>
-                  {`"${review.comment}"`}
-                </CardContent>
-
-                <CardHeader>
-                  <div className="flex flex-row items-center gap-4">
-                    <Avatar>
-                      <AvatarImage src={review.image} alt={review.name} />
-                      <AvatarFallback>SV</AvatarFallback>
-                    </Avatar>
-
-                    <div className="flex flex-col">
-                      <CardTitle className="text-lg">{review.name}</CardTitle>
-                      <CardDescription>{review.role}</CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
     </section>
-  );
-};
+  )
+}
