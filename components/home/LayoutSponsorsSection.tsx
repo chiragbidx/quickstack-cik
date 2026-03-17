@@ -1,27 +1,30 @@
-"use client";
+import { Icon } from "@/components/ui/icon"
+import { HOME_CONTENT } from "@/content/home"
 
-import { Icon } from "@/components/ui/icon";
-import { getHomeContent } from "@/content/home";
+const { features, sponsors } = HOME_CONTENT
 
-const { sponsors } = getHomeContent();
-
-export const LayoutSponsorsSection = () => {
+export default function LayoutSponsorsSection() {
   return (
-    <section id="sponsors" className="max-w-[75%] mx-auto pb-24 sm:pb-32">
-      <h2 className="text-lg md:text-xl text-center mb-6">
-        {sponsors.heading}
-      </h2>
-
-      <div className="relative overflow-hidden rounded-xl border border-border/60 bg-card/60 p-4">
-        <div className="flex w-max gap-12 animate-marquee">
-          {sponsors.items.flatMap((item) => [item, item]).map(({ icon, name }, idx) => (
-            <div key={`${name}-${idx}`} className="flex items-center text-xl md:text-2xl font-medium text-foreground/85">
-              <Icon name={icon} size={32} className="mr-2 text-primary" />
-              {name}
-            </div>
-          ))}
-        </div>
+    <section
+      className="w-full bg-muted/50 py-10 flex flex-col items-center justify-center"
+      id="layout-sponsors"
+    >
+      <div className="w-full max-w-4xl mx-auto text-center mb-8">
+        <h2 className="font-semibold text-lg uppercase text-muted-foreground tracking-wider">
+          {sponsors.heading}
+        </h2>
+      </div>
+      <div className="flex flex-wrap items-center justify-center gap-7">
+        {sponsors.items.map((item) => (
+          <div
+            key={item.name}
+            className="flex items-center gap-3 px-6 py-2 rounded-lg bg-background/80 border shadow group transition"
+          >
+            <Icon name={item.icon} className="w-6 h-6 text-muted-foreground" />
+            <span className="font-medium text-base">{item.name}</span>
+          </div>
+        ))}
       </div>
     </section>
-  );
-};
+  )
+}
