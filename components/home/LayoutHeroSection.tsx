@@ -1,78 +1,43 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { getHomeContent } from "@/content/home";
+"use client"
 
-const { hero } = getHomeContent();
+import * as React from "react"
+import { Button } from "@/components/ui/button"
+import { HOME_CONTENT } from "@/content/home"
+import Link from "next/link"
+import Image from "next/image"
 
-export const LayoutHeroSection = () => {
+export default function LayoutHeroSection() {
   return (
-    <section className="container w-full">
-      <div className="grid place-items-center lg:max-w-screen-xl gap-8 mx-auto py-20 md:py-32">
-        <div className="text-center space-y-8">
-          <Badge variant="outline" className="text-sm py-2">
-            <span className="mr-2 text-primary">
-              <Badge>{hero.badgeInner}</Badge>
-            </span>
-            <span>{hero.badgeOuter}</span>
-          </Badge>
-
-          <div className="max-w-screen-md mx-auto text-center text-4xl md:text-6xl font-bold">
-            <h1>
-              {hero.titleBefore}
-              <span className="text-transparent px-2 bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text">
-                {hero.titleHighlight}
-              </span>
-              {hero.titleAfter}
-            </h1>
-          </div>
-
-          <p className="max-w-screen-sm mx-auto text-xl text-muted-foreground">
-            {hero.subtitle}
-          </p>
-
-          <div className="space-y-4 md:space-y-0 md:space-x-4">
-            <Button asChild className="w-5/6 md:w-1/4 font-bold group/arrow">
-              <Link href={hero.primaryCta.href}>
-                {hero.primaryCta.label}
-                <ArrowRight className="size-5 ml-2 group-hover/arrow:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
-
-            <Button
-              asChild
-              variant="secondary"
-              className="w-5/6 md:w-1/4 font-bold"
-            >
-              <Link href={hero.secondaryCta.href}>
-                {hero.secondaryCta.label}
-              </Link>
-            </Button>
-          </div>
+    <section className="w-full flex flex-col items-center justify-center py-24 bg-background relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="w-full h-full bg-gradient-to-b from-transparent via-blue-100/20 to-background" />
+      </div>
+      <div className="z-10 w-full max-w-4xl mx-auto flex flex-col items-center justify-center text-center px-6">
+        <h1 className="text-5xl font-bold mb-4 bg-gradient-to-br from-blue-800 via-blue-500 to-blue-400 bg-clip-text text-transparent">
+          {HOME_CONTENT.heroHeading}
+        </h1>
+        <p className="text-xl font-medium text-muted-foreground mb-8">
+          {HOME_CONTENT.heroSubheading}
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button asChild size="lg" className="font-semibold text-lg px-8">
+            <Link href="/auth">{HOME_CONTENT.ctaPrimary}</Link>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="font-semibold text-lg px-8">
+            <Link href="#layout-features">{HOME_CONTENT.ctaSecondary}</Link>
+          </Button>
         </div>
-
-        <div className="relative group mt-14">
-          <div className="absolute top-2 lg:-top-8 left-1/2 transform -translate-x-1/2 w-[90%] mx-auto h-24 lg:h-80 bg-primary/50 rounded-full blur-3xl"></div>
+        <div className="w-full flex flex-col items-center mt-10">
           <Image
-            width={1200}
-            height={1200}
-            className="w-full md:w-[1200px] mx-auto rounded-lg relative rouded-lg leading-none flex items-center border border-t-2 border-secondary border-t-primary/30 dark:hidden"
-            src={hero.heroImageLight}
-            alt={hero.heroImageAlt}
+            src="/hero-image-light.jpeg"
+            alt="FlowCRM App Preview"
+            width={900}
+            height={420}
+            priority
+            className="rounded-2xl shadow-xl ring-1 ring-muted/20"
           />
-          <Image
-            width={1200}
-            height={1200}
-            className="hidden w-full md:w-[1200px] mx-auto rounded-lg relative rouded-lg leading-none border border-t-2 border-secondary border-t-primary/30 dark:block"
-            src={hero.heroImageDark}
-            alt={hero.heroImageAlt}
-          />
-
-          <div className="absolute bottom-0 left-0 w-full h-20 md:h-28 bg-gradient-to-b from-background/0 via-background/50 to-background rounded-lg"></div>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
