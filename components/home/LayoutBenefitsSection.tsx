@@ -1,52 +1,31 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Icon } from "@/components/ui/icon";
-import { getHomeContent } from "@/content/home";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Icon } from "@/components/ui/icon"
+import { HOME_CONTENT } from "@/content/home"
 
-const { benefits } = getHomeContent();
+const { benefits } = HOME_CONTENT
 
-export const LayoutBenefitsSection = () => {
+export default function LayoutBenefitsSection() {
   return (
-    <section id="benefits" className="container py-24 sm:py-32">
-      <div className="grid lg:grid-cols-2 place-items-center lg:gap-24">
-        <div>
-          <h2 className="text-lg text-primary mb-2 tracking-wider">{benefits.eyebrow}</h2>
-
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {benefits.heading}
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8">
-            {benefits.description}
-          </p>
+    <section className="py-24 bg-background" id="layout-benefits">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="mb-2 text-4xl font-bold">{benefits.heading}</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{benefits.description}</p>
         </div>
-
-        <div className="grid lg:grid-cols-2 gap-4 w-full">
-          {benefits.items.map(({ icon, title, description }, index) => (
-            <Card
-              key={title}
-              className="bg-muted/50 dark:bg-card hover:bg-background transition-all delay-75 group/number"
-            >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+          {benefits.benefits.map((item) => (
+            <Card key={item.title} className="shadow-md p-6">
               <CardHeader>
-                <div className="flex justify-between">
-                  <Icon
-                    name={icon}
-                    size={32}
-                    className="mb-6 text-primary"
-                  />
-                  <span className="text-5xl text-muted-foreground/15 font-medium transition-all delay-75 group-hover/number:text-muted-foreground/30">
-                    0{index + 1}
-                  </span>
-                </div>
-
-                <CardTitle>{title}</CardTitle>
+                <Icon name={item.icon} className="w-8 h-8 text-primary" />
+                <CardTitle className="text-xl pt-2">{item.title}</CardTitle>
               </CardHeader>
-
-              <CardContent className="text-muted-foreground">
-                {description}
+              <CardContent>
+                <p className="text-muted-foreground">{item.description}</p>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
