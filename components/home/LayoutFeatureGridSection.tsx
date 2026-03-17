@@ -1,47 +1,31 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Icon } from "@/components/ui/icon";
-import { getHomeContent } from "@/content/home";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Icon } from "@/components/ui/icon"
+import { HOME_CONTENT } from "@/content/home"
 
-const { features } = getHomeContent();
+const { features } = HOME_CONTENT
 
-export const LayoutFeatureGridSection = () => {
+export default function LayoutFeatureGridSection() {
   return (
-    <section id="features" className="container py-24 sm:py-32">
-      <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-        {features.eyebrow}
-      </h2>
-
-      <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-        {features.heading}
-      </h2>
-
-      <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground mb-8">
-        {features.subtitle}
-      </h3>
-
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {features.items.map(({ icon, title, description }) => (
-          <div key={title}>
-            <Card className="h-full bg-background border-0 shadow-none">
-              <CardHeader className="flex justify-center items-center">
-                <div className="bg-primary/20 p-2 rounded-full ring-8 ring-primary/10 mb-4">
-                  <Icon
-                    name={icon}
-                    size={24}
-                    className="text-primary"
-                  />
-                </div>
-
-                <CardTitle>{title}</CardTitle>
+    <section className="py-24 bg-muted/30" id="layout-features">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="mb-2 text-4xl font-bold">{features.heading}</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{features.subtitle}</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+          {features.features.map((item) => (
+            <Card key={item.title} className="shadow-md p-6">
+              <CardHeader>
+                <Icon name={item.icon} className="w-8 h-8 text-primary" />
+                <CardTitle className="text-xl pt-2">{item.title}</CardTitle>
               </CardHeader>
-
-              <CardContent className="text-muted-foreground text-center">
-                {description}
+              <CardContent>
+                <p className="text-muted-foreground">{item.description}</p>
               </CardContent>
             </Card>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
-  );
-};
+  )
+}
