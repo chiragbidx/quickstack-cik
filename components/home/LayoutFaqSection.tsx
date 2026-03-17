@@ -1,37 +1,24 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { getHomeContent } from "@/content/home";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { HOME_CONTENT } from "@/content/home"
 
-const { faq } = getHomeContent();
+const { faqs } = HOME_CONTENT
 
-export const LayoutFaqSection = () => {
+export default function LayoutFaqSection() {
   return (
-    <section id="faq" className="container mx-auto md:w-[700px] py-24 sm:py-32">
-      <div className="text-center mb-8">
-        <h2 className="text-lg text-primary text-center mb-2 tracking-wider">
-          {faq.eyebrow}
-        </h2>
-
-        <h2 className="text-3xl md:text-4xl text-center font-bold">
-          {faq.heading}
-        </h2>
+    <section className="py-20 bg-muted/30" id="layout-faq">
+      <div className="max-w-4xl mx-auto text-center mb-12">
+        <h2 className="mb-2 text-4xl font-bold">FAQ</h2>
       </div>
-
-      <Accordion type="single" collapsible className="AccordionRoot">
-        {faq.items.map(({ question, answer }, idx) => (
-          <AccordionItem key={idx} value={`item-${idx + 1}`}>
-            <AccordionTrigger className="text-left">
-              {question}
-            </AccordionTrigger>
-
-            <AccordionContent>{answer}</AccordionContent>
+      <Accordion type="single" collapsible className="max-w-2xl mx-auto">
+        {faqs.map((item, i) => (
+          <AccordionItem value={`faq-${i}`} key={i}>
+            <AccordionTrigger>{item.question}</AccordionTrigger>
+            <AccordionContent>
+              <p>{item.answer}</p>
+            </AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
     </section>
-  );
-};
+  )
+}
